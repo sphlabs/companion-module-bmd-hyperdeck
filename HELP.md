@@ -10,8 +10,6 @@
 * Play loop (Speed %)
 * Record
 * Record (with name)
-* Record (with name and current date/time)
-* Record (with custom reel)
 * Stop
 * Goto (timecode)
 * Goto Clip (n)
@@ -23,4 +21,3 @@
 * Select (slot)
 * Select video input
 * Select audio input
-* Remote Control (enable/disable)
