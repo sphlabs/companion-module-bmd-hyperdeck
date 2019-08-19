@@ -62,6 +62,79 @@ instance.prototype.init_tcp = function() {
 	}
 };
 
+// Define the available feedback states
+instance.prototype.init_feedbacks = function() {
+	var self = this;
+	
+	var feedback = {
+		status_colour: {
+			label: 'Change colour on status',
+			description: 'Change the colours of a button according to the deck transport state',
+			options: [
+				{
+					type: 'colorpicker',
+					label: 'Stop: Foreground colour',
+					id: 'stop_fg',
+					default: self.rgb(255,255,255)
+				},
+				{
+					type: 'colorpicker',
+					label: 'Stop: Background colour',
+					id: 'stop_bg',
+					default: self.rgb(102,0,102)
+				}
+				{
+					type: 'colorpicker',
+					label: 'Play: Foreground colour',
+					id: 'play_fg',
+					default: self.rgb(255,255,255)
+				},
+				{
+					type: 'colorpicker',
+					label: 'Play: Background colour',
+					id: 'play_bg',
+					default: self.rgb(0,153,51)
+				}
+				{
+					type: 'colorpicker',
+					label: 'Forward: Foreground colour',
+					id: 'fwd_fg',
+					default: self.rgb(255,255,255)
+				},
+				{
+					type: 'colorpicker',
+					label: 'Forward: Background colour',
+					id: 'fwd_bg',
+					default: self.rgb(102,102,153)
+				}
+				{
+					type: 'colorpicker',
+					label: 'Rewind: Foreground colour',
+					id: 'rew_fg',
+					default: self.rgb(255,255,255)
+				},
+				{
+					type: 'colorpicker',
+					label: 'Rewind: Background colour',
+					id: 'rew_bg',
+					default: self.rgb(102,102,153)
+				}
+				{
+					type: 'colorpicker',
+					label: 'Record: Foreground colour',
+					id: 'rec_fg',
+					default: self.rgb(255,255,255)
+				},
+				{
+					type: 'colorpicker',
+					label: 'Record: Background colour',
+					id: 'rec_bg',
+					default: self.rgb(230,0,0)
+				}
+			]
+		}
+	}
+}
 
 // Return config fields for web config
 instance.prototype.config_fields = function () {
