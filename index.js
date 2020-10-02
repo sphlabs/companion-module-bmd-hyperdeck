@@ -599,21 +599,21 @@ class instance extends instance_skel {
 				break;
 			case 'recName':
 				cmd = new Commands.RecordCommand();
-				cmd.name = opt.name;
+				cmd.filename = opt.name;
 				break;
 			case 'recTimestamp':
 				cmd = new Commands.RecordCommand();
 				var timeStamp = this.getTimestamp();
 				if (opt.prefix !== '') {
-					cmd.name = opt.prefix + '-' + timeStamp + '-';
+					cmd.filename = opt.prefix + '-' + timeStamp + '-';
 				}
 				else {
-					cmd.name = timeStamp + '-';
+					cmd.filename = timeStamp + '-';
 				}
 				break;
 			case 'recCustom':
 				cmd = new Commands.RecordCommand();
-				cmd.name = this.config.reel + '-';
+				cmd.filename = this.config.reel + '-';
 				break;
 			case 'goto':
 				cmd = new Commands.GoToCommand()
@@ -1008,17 +1008,29 @@ class instance extends instance_skel {
 		});
 		this.setVariable('speed', this.transportInfo['speed']);
 
+		//Clip ID and Slot ID  null exceptions
+
+		let clipIdVariable = '—';
+		if (this.transportInfo['clipId'] != null) {
+			clipIdVariable = this.transportInfo['clipId'];
+		}
+
+		let slotIdVariable = '—';
+		if (this.transportInfo['slotId'] != null) {
+			slotIdVariable = this.transportInfo['slotId'];
+		}
+
 		variables.push({
 			label: 'Clip ID',
 			name:  'clipId'
 		});
-		this.setVariable('clipId', this.transportInfo['clipId']);
+		this.setVariable('clipId', clipIdVariable);
 
 		variables.push({
 			label: 'Slot ID',
 			name:  'slotId'
 		});
-		this.setVariable('slotId', this.transportInfo['slotId']);
+		this.setVariable('slotId', slotIdVariable);
 
 		variables.push({
 			label: 'Video format',
@@ -1108,7 +1120,7 @@ class instance extends instance_skel {
 			this.hyperDeck = new Hyperdeck()
 
 			this.hyperDeck.on('error', e => {
-				this.log('error', e)
+				this.log('error', e.message)
 			})
 
 			this.hyperDeck.on('connected', async c => {
@@ -1225,6 +1237,10 @@ class instance extends instance_skel {
 		this.hyperDeck.sendCommand(new Commands.TransportInfoCommand()).then((transportInfo) => {
 			that.transportInfo = transportInfo;
 		})
+		.catch((error) => {
+			this.log('error', 'Timecode polling failed')
+			clearInterval(this.pollTimer);
+		});
 		this.initVariables();
 	}
 

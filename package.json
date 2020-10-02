@@ -1,6 +1,9 @@
 {
-	"name": "hyperdeck",
-	"version": "1.1.1",
+	"name": "bmd-hyperdeck",
+	"legacy": [
+		"hyperdeck"
+	],
+	"version": "1.1.2",
 	"api_version": "1.0.0",
 	"keywords": [
 		"Recording",
